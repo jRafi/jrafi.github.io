@@ -1,9 +1,11 @@
 ---
 title: "Index"
 layout: default
+theme: null
 output:
   md_document:
-    variant: markdown_github
+  css: css/main.css
+  variant: markdown_github
 ---
 
 ```{r setup, include=FALSE}
