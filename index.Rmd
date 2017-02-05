@@ -1,7 +1,8 @@
 ---
 title: "Index"
 layout: default
-output: html_document
+output: md_document
+markdown: pandoc
 ---
 
 ```{r setup, include=FALSE}
@@ -27,3 +28,4 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
