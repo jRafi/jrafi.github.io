@@ -1,8 +1,9 @@
 ---
 title: "Index"
 layout: default
-output: md_document
-markdown: pandoc
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 ```{r setup, include=FALSE}
