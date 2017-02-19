@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: 'Create flowcharts in R using diagrammeR'\nauthor: \"Jonas Rafi\"\ndate: \"2017-02-19\"\noutput: html_document\n---\n\n*First things first: why create flowcharts in R?*\n\nAlthough it may seem as an unnecessary and time-consuming exercise, I would argue that you could create\nflowcharts in less time and with way better using the diagrammeR-package results than using powerpoint.\nThis is mainly because you don't have to spend time with details, such as aligning tiny arrows. The purpose of this short tutorial is to share what is needed to create a nice and customizable flowchart in 5 minutes.\n\n\nThe package we're going to use is [DiagrammeR](http://rich-iannone.github.io/DiagrammeR/) by Richard Iannone. However, being far from an \"R-expert\", even the documentation of the diagrammeR-package may seem too complex for any one just wishing to create a PRISMA or [CONSORT](http://www.consort-statement.org/consort-statement/flow-diagram) diagram. The good thing is that once you find the code you need, tweaking your flowcharts is a breeze. In fact, the syntax of the DiagrammeR-package is so clear that just looking at the below sample code should be enough to get a feel of how to use it. For example, consider the below code which creates a CONSORT-style flowchart:\n\n\n```{r diagrammeR}\nlibrary(DiagrammeR)\n\ngrViz(\"digraph {\n \n#===================     \n# General properties\n#===================\n\nsplines=ortho \nNode [shape = box, fontname = Helvetica, fixedsize = true, width=2]\n\n#=============================\n# Create the nodes (the boxes)\n#=============================\n\nAssesed [label='Assesed for eligibility', width=3]\nRandomized [label='Eligible for randomization', width=3]\n\nA1 [label='This group']\nA2 [label='Lost to follow-up']\nA3 [label='Analyzed']\n\nB1 [label='That group']\nB2 [label='Lost to follow-up']\nB3 [label='Analyzed']\n\nC1 [label='Excluded']\n\n#=============================\n# Connect the nodes with lines\n#=============================\n\nAssesed -> C1 [minlen=0]\nAssesed->Randomized-> {A1 B1} \nA1->A2->A3\nB1->B2->B3 \n\n\n}\")\n```\n\nBy looking at the above code, it is clear that:\n* Adding a node is as simple as just writing what it should be called (e.g. A1)\n* Element attributes can be set by enclosing the attributes in brackets\n* Nodes can be connected using \"->\"\n\nOnce you have entered the text you want to be displayed in each box, all that is left is to\nexport the flowchart to an image-file. Ideally, you would export in a vector-graphics format like PDF,\nwhich allows for resizing the image without corrupting it. However, here is where it may get tricky.\nThe DiagrammeR package does not use the regular graphics device used in R. Instead, it prints the flowchart\nas HTML, which hinders you from just saving it as a PDF.\n\nHere is some potential solutions which have worked atleast once for someone:\nRight-clicking the image and select \"Open Frame in New Window\", then click the print-icon and choose \"Save as PDF\". (Only works on mac for me)\nExport -> Save as image - works sometimes, but doesnt generate vector-graphic\nTake a screenshot and paste into an image-editor. Doesnt generate vector-graphic though.\nSupposedly you can save it as a webpage from the Export menu, and save it from there. When i try it I get an error with the markdown-package though. I mention this because it seems to work for some others.\n\n\n\n",
+    "created" : 1487535302442.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2645311779",
+    "id" : "45097CAD",
+    "lastKnownWriteTime" : 1487535371,
+    "last_content_update" : 1487535371548,
+    "path" : "~/GitHub/jrafi.github.io/2017-02-19-Flowcharts.Rmd",
+    "project_path" : "2017-02-19-Flowcharts.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

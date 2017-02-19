@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Jonas Rafi" />
+
+<meta name="date" content="2017-02-19" />
+
+<title>Create flowcharts in R using diagrammeR</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="site_libs/viz-0.3/viz.js"></script>
+<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="site_libs/grViz-binding-0.8.4/grViz.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Create flowcharts in R using diagrammeR</h1>
+<h4 class="author"><em>Jonas Rafi</em></h4>
+<h4 class="date"><em>2017-02-19</em></h4>
+
+</div>
+
+
+<p><em>First things first: why create flowcharts in R?</em></p>
+<p>Although it may seem as an unnecessary and time-consuming exercise, I would argue that you could create flowcharts in less time and with way better using the diagrammeR-package results than using powerpoint. This is mainly because you don’t have to spend time with details, such as aligning tiny arrows. The purpose of this short tutorial is to share what is needed to create a nice and customizable flowchart in 5 minutes.</p>
+<p>The package we’re going to use is <a href="http://rich-iannone.github.io/DiagrammeR/">DiagrammeR</a> by Richard Iannone. However, being far from an “R-expert”, even the documentation of the diagrammeR-package may seem too complex for any one just wishing to create a PRISMA or <a href="http://www.consort-statement.org/consort-statement/flow-diagram">CONSORT</a> diagram. The good thing is that once you find the code you need, tweaking your flowcharts is a breeze. In fact, the syntax of the DiagrammeR-package is so clear that just looking at the below sample code should be enough to get a feel of how to use it. For example, consider the below code which creates a CONSORT-style flowchart:</p>
+<pre class="r"><code>library(DiagrammeR)
+
+grViz(&quot;digraph {
+ 
+#===================     
+# General properties
+#===================
+
+splines=ortho 
+Node [shape = box, fontname = Helvetica, fixedsize = true, width=2]
+
+#=============================
+# Create the nodes (the boxes)
+#=============================
+
+Assesed [label=&#39;Assesed for eligibility&#39;, width=3]
+Randomized [label=&#39;Eligible for randomization&#39;, width=3]
+
+A1 [label=&#39;This group&#39;]
+A2 [label=&#39;Lost to follow-up&#39;]
+A3 [label=&#39;Analyzed&#39;]
+
+B1 [label=&#39;That group&#39;]
+B2 [label=&#39;Lost to follow-up&#39;]
+B3 [label=&#39;Analyzed&#39;]
+
+C1 [label=&#39;Excluded&#39;]
+
+#=============================
+# Connect the nodes with lines
+#=============================
+
+Assesed -&gt; C1 [minlen=0]
+Assesed-&gt;Randomized-&gt; {A1 B1} 
+A1-&gt;A2-&gt;A3
+B1-&gt;B2-&gt;B3 
+
+
+}&quot;)</code></pre>
+<div id="htmlwidget-f1af518bf8521a15b53b" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f1af518bf8521a15b53b">{"x":{"diagram":"digraph {\n \n#===================     \n# General properties\n#===================\n\nsplines=ortho \nNode [shape = box, fontname = Helvetica, fixedsize = true, width=2]\n\n#=============================\n# Create the nodes (the boxes)\n#=============================\n\nAssesed [label=\"Assesed for eligibility\", width=3]\nRandomized [label=\"Eligible for randomization\", width=3]\n\nA1 [label=\"This group\"]\nA2 [label=\"Lost to follow-up\"]\nA3 [label=\"Analyzed\"]\n\nB1 [label=\"That group\"]\nB2 [label=\"Lost to follow-up\"]\nB3 [label=\"Analyzed\"]\n\nC1 [label=\"Excluded\"]\n\n#=============================\n# Connect the nodes with lines\n#=============================\n\nAssesed -> C1 [minlen=0]\nAssesed->Randomized-> {A1 B1} \nA1->A2->A3\nB1->B2->B3 \n\n\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>By looking at the above code, it is clear that: * Adding a node is as simple as just writing what it should be called (e.g. A1) * Element attributes can be set by enclosing the attributes in brackets * Nodes can be connected using “-&gt;”</p>
+<p>Once you have entered the text you want to be displayed in each box, all that is left is to export the flowchart to an image-file. Ideally, you would export in a vector-graphics format like PDF, which allows for resizing the image without corrupting it. However, here is where it may get tricky. The DiagrammeR package does not use the regular graphics device used in R. Instead, it prints the flowchart as HTML, which hinders you from just saving it as a PDF.</p>
+<p>Here is some potential solutions which have worked atleast once for someone: Right-clicking the image and select “Open Frame in New Window”, then click the print-icon and choose “Save as PDF”. (Only works on mac for me) Export -&gt; Save as image - works sometimes, but doesnt generate vector-graphic Take a screenshot and paste into an image-editor. Doesnt generate vector-graphic though. Supposedly you can save it as a webpage from the Export menu, and save it from there. When i try it I get an error with the markdown-package though. I mention this because it seems to work for some others.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
