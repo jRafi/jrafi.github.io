@@ -1,5 +1,6 @@
 ---
 title: "Untitled"
+layout: post
 output: github_document
 ---
 
