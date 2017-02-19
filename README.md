@@ -1,3 +1,8 @@
+---
+output: github_document
+---
+
 ## Blog
 
-<jRafi.github.io>
+<https://jRafi.github.io>
+
