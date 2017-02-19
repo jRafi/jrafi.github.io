@@ -58,6 +58,7 @@ B1->B2->B3
 ```
 
 By looking at the above code, it is clear that:
+
 * Adding a node is as simple as just writing what it should be called (e.g. A1)
 * Element attributes can be set by enclosing the attributes in brackets
 * Nodes can be connected using "->"
