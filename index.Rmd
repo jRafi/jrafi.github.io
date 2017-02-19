@@ -1,11 +1,8 @@
 ---
-title: "Index"
-layout: default
-theme: null
-output:
-  md_document:
-  css: css/main.css
-  variant: markdown_github
+title: "Untitled"
+author: "Jonas"
+date: "19 februari 2017"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -31,4 +28,3 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
