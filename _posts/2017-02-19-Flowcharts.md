@@ -3,9 +3,12 @@ title: 'Create flowcharts in R using diagrammeR'
 author: "Jonas Rafi"
 date: "2017-02-19"
 layout: post
+output: 
+  md_document:
+    variant: markdown_github
 ---
 
-md
+rmd
 
 *First things first: why create flowcharts in R?*
 
